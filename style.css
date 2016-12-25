@@ -1,7 +1,38 @@
 body {
-    background: black;
+  background: black;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  color: white;
+  padding: 0 32px;
+  font-weight: 700;
 }
 
 p {
-    color: white;    
+  margin: 0;
+}
+
+.name {
+  font-size: 64px;
+  margin: 32px 0;
+}
+
+.divider {
+  height: 4px;
+  background: white;
+  margin: 32px 0 16px 0;
+}
+
+ul {
+  font-size: 36px;
+  margin: 0 -32px;
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 16px 0 16px 32px;
+}
+
+li:hover {
+  cursor: pointer;
+  background: #8D8A83;
 }
