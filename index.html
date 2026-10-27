@@ -28,7 +28,7 @@
 			--page-gutter: 40px;
 			--ease-ll: cubic-bezier(.45, .12, .25, 1);
 			--duration-intro: 1.2s;
-			--blur: 5px;
+			--blur: 0px;
 		}
 		*, :before, :after { box-sizing: border-box; }
 		html { -webkit-text-size-adjust: 100%; }
@@ -46,7 +46,7 @@
 		a:focus-visible { outline: 1px solid; outline-offset: 5px; }
 		::selection { background: color-mix(in srgb, var(--color-bg) 30%, transparent); color: var(--color-fg); }
 
-		/* Background: blurred looping water video over its poster frame, dimmed by a black scrim. */
+		/* Background: looping water video over its poster frame, dimmed by a black scrim. */
 		.background {
 			position: fixed;
 			top: 0; left: 0;
@@ -140,19 +140,6 @@
 			animation-delay: .2s;
 		}
 
-		.home-footer {
-			position: fixed;
-			inset: auto 0 0;
-			z-index: 2;
-			display: flex;
-			align-items: center;
-			padding: 15px var(--page-gutter);
-			color: #ffffff80;
-			font-size: 10px;
-			font-weight: 400;
-			animation: fade var(--duration-intro) var(--ease-ll) both;
-			animation-delay: .4s;
-		}
 
 		@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
@@ -168,7 +155,6 @@
 			}
 			.home-copy { width: 100%; max-width: 360px; font-size: 18px; line-height: 1.45; }
 			.locations { text-align: left; font-size: 14px; }
-			.home-footer { font-size: 9px; }
 		}
 		@media (width <= 768px) and (height <= 700px) {
 			.home-copy { font-size: 16px; line-height: 1.4; }
@@ -209,9 +195,6 @@
 				<li>Los Angeles, CA</li>
 			</ul>
 		</div>
-		<footer class="home-footer">
-			<span>&copy; 2026 Milton &amp; Parc</span>
-		</footer>
 	</main>
 	<script>
 		(function () {
