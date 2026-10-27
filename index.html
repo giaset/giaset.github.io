@@ -1,13 +1,228 @@
-<!DOCTYPE html>
-<title>Gianni Settino</title>
-<style>
-  body {
-    background: pink;
-    font-family: monospace;
-    width: 200px;
-  }
-</style>
-<h1>Gianni Settino.</h1>
-<p># I build stuff</p>
-<p># NYC / Montreal</p>
-<p># <a href="https://www.linkedin.com/in/giaset/" target="_blank">Resume</a></p>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Milton &amp; Parc</title>
+	<meta name="description" content="We are liquidity providers to frontier markets." />
+	<meta property="og:title" content="Milton &amp; Parc" />
+	<meta property="og:description" content="We are liquidity providers to frontier markets." />
+	<meta property="og:image" content="https://www.miltonandparc.com/media/open-water-poster.jpg" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="theme-color" content="#000000" />
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	<link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+	<style>
+		@font-face {
+			font-family: Inter;
+			src: url(/fonts/inter-latin-wght-normal.woff2) format("woff2");
+			font-weight: 100 900;
+			font-style: normal;
+			font-display: swap;
+		}
+		:root {
+			color-scheme: dark;
+			--color-bg: #030a0d;
+			--color-fg: #fffefe;
+			--font-sans: "Inter", Helvetica, sans-serif;
+			--page-gutter: 40px;
+			--ease-ll: cubic-bezier(.45, .12, .25, 1);
+			--duration-intro: 1.2s;
+			--blur: 5px;
+		}
+		*, :before, :after { box-sizing: border-box; }
+		html { -webkit-text-size-adjust: 100%; }
+		html, body { height: 100%; overflow: hidden; }
+		body {
+			margin: 0;
+			font-family: var(--font-sans);
+			background: var(--color-bg);
+			color: var(--color-fg);
+			line-height: 1.5;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+		a { color: inherit; }
+		a:focus-visible { outline: 1px solid; outline-offset: 5px; }
+		::selection { background: color-mix(in srgb, var(--color-bg) 30%, transparent); color: var(--color-fg); }
+
+		/* Background: blurred looping water video over its poster frame, dimmed by a black scrim. */
+		.background {
+			position: fixed;
+			top: 0; left: 0;
+			width: 100%;
+			height: 100lvh;
+			overflow: hidden;
+			z-index: -1;
+			pointer-events: none;
+		}
+		.media-layer {
+			position: absolute;
+			inset: calc(var(--blur) * -3);
+			filter: blur(var(--blur));
+		}
+		.media {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: 50% 50%;
+			display: block;
+		}
+		.player { opacity: 0; transition: opacity .2s var(--ease-ll); }
+		.player.is-playing { opacity: 1; }
+		.scrim { position: absolute; inset: 0; background: #000; opacity: .4; }
+
+		main { position: relative; color: #fff; }
+
+		.home-header {
+			position: fixed;
+			inset: 0 0 auto;
+			z-index: 3;
+		}
+		.home-nav {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: 30px var(--page-gutter);
+		}
+		.brand {
+			display: block;
+			flex-shrink: 0;
+			margin: -8px;
+			padding: 8px;
+			font-size: 26px;
+			font-weight: 300;
+			line-height: 1;
+			letter-spacing: .16em;
+			text-transform: uppercase;
+			text-decoration: none;
+			color: #fff;
+			white-space: nowrap;
+			animation: fade var(--duration-intro) var(--ease-ll) both;
+		}
+
+		.home-content {
+			position: fixed;
+			inset: auto 0 50px;
+			z-index: 1;
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			gap: 40px;
+			padding-inline: var(--page-gutter);
+		}
+		.home-copy {
+			width: 650px;
+			max-width: 100%;
+			color: #fffc;
+			font-size: clamp(20px, 1.75vw, 30px);
+			font-weight: 400;
+			line-height: 1.2;
+			letter-spacing: 0;
+			animation: fade var(--duration-intro) var(--ease-ll) both;
+			animation-delay: .2s;
+		}
+		h1 { font: inherit; margin: 0; }
+		.locations {
+			flex-shrink: 0;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			color: #fffc;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 1.8;
+			letter-spacing: 1px;
+			text-align: right;
+			animation: fade var(--duration-intro) var(--ease-ll) both;
+			animation-delay: .2s;
+		}
+
+		.home-footer {
+			position: fixed;
+			inset: auto 0 0;
+			z-index: 2;
+			display: flex;
+			align-items: center;
+			padding: 15px var(--page-gutter);
+			color: #ffffff80;
+			font-size: 10px;
+			font-weight: 400;
+			animation: fade var(--duration-intro) var(--ease-ll) both;
+			animation-delay: .4s;
+		}
+
+		@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+		@media (width <= 768px) {
+			:root { --page-gutter: 20px; }
+			.home-nav { padding-block: 24px; }
+			.brand { font-size: 18px; letter-spacing: .14em; }
+			.home-content {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 20px;
+				bottom: 60px;
+			}
+			.home-copy { width: 100%; max-width: 360px; font-size: 18px; line-height: 1.45; }
+			.locations { text-align: left; font-size: 14px; }
+			.home-footer { font-size: 9px; }
+		}
+		@media (width <= 768px) and (height <= 700px) {
+			.home-copy { font-size: 16px; line-height: 1.4; }
+		}
+		@media (width <= 1024px) and (height <= 560px) {
+			.home-content { bottom: 52px; }
+			.home-copy { max-width: calc(100% - 220px); }
+			.locations { position: absolute; right: var(--page-gutter); bottom: 0; font-size: 13px; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, :before, :after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<div class="background" aria-hidden="true">
+		<div class="media-layer">
+			<img class="media" src="/media/open-water-poster.jpg" width="3840" height="2160" alt="" fetchpriority="high" />
+			<video class="media player" id="bg-video" muted loop playsinline autoplay preload="auto" poster="/media/open-water-poster.jpg" tabindex="-1">
+				<source src="/media/open-water.mp4" type="video/mp4" />
+			</video>
+		</div>
+		<div class="scrim"></div>
+	</div>
+	<main id="main">
+		<header class="home-header">
+			<nav class="home-nav" aria-label="Main navigation">
+				<a class="brand" href="/" aria-label="Milton &amp; Parc home">Milton &amp; Parc</a>
+			</nav>
+		</header>
+		<div class="home-content">
+			<div class="home-copy">
+				<h1>We are liquidity providers to frontier markets.</h1>
+			</div>
+			<ul class="locations" aria-label="Our locations">
+				<li>Montreal, QC</li>
+				<li>New York, NY</li>
+				<li>Los Angeles, CA</li>
+			</ul>
+		</div>
+		<footer class="home-footer">
+			<span>&copy; 2026 Milton &amp; Parc</span>
+		</footer>
+	</main>
+	<script>
+		(function () {
+			var video = document.getElementById('bg-video');
+			if (!video) return;
+			var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			if (reduce) { video.removeAttribute('autoplay'); video.pause(); return; }
+			video.addEventListener('playing', function () { video.classList.add('is-playing'); });
+			var p = video.play();
+			if (p && p.catch) p.catch(function () { /* autoplay blocked: the poster image stays */ });
+		})();
+	</script>
+</body>
+</html>
